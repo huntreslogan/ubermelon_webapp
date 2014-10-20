@@ -10,7 +10,9 @@ app.jinja_env.undefined = jinja2.StrictUndefined
 @app.route("/")
 def index():
     """This is the 'cover' page of the ubermelon site"""
+    print session, "This is the session printout."
     return render_template("index.html")
+
 
 @app.route("/melons")
 def list_melons():
@@ -43,8 +45,16 @@ def add_to_cart(id):
     Intended behavior: when a melon is added to a cart, redirect them to the
     shopping cart page, while displaying the message
     "Successfully added to cart" """
+    
+    if 'cart' in session:
+        session['cart'].append(id)
+        flash("Your melon was successfully added to the cart!")
+        print session, "cart session"
+        
+    else:
+        session['cart'] = []
 
-    return "Oops! This needs to be implemented!"
+    return redirect ("/cart")
 
 
 @app.route("/login", methods=["GET"])
