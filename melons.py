@@ -43,9 +43,9 @@ def shopping_cart():
             melon= model.get_melon_by_id(item)
             total_cost += melon.price
             if melon.id in melon_dictionary:
-                melon_dictionary[melon.id][1] += 1
+                melon_dictionary[melon.id]["Quantity"] += 1
             else:
-                melon_dictionary[melon.id] = [melon.common_name, 1, melon.price] 
+                melon_dictionary[melon.id] = {"Name": melon.common_name,"Quantity":  1, "Price": melon.price} 
 
     return render_template("cart.html", cart_items = melon_dictionary, total = total_cost)
 
